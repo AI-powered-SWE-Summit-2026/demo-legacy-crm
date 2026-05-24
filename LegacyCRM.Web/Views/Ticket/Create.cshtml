@@ -1,0 +1,23 @@
+@model LegacyCRM.Web.Models.ViewModels.TicketViewModel
+@{
+    ViewBag.Title = "Create Ticket";
+}
+<div class="page-header"><h2>Create Ticket</h2></div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+    <div class="row">
+        <div class="col-md-6 form-group">@Html.LabelFor(m => m.CustomerId)@Html.DropDownListFor(m => m.CustomerId, (IEnumerable<SelectListItem>)ViewBag.CustomerId, "Select customer", new { @class = "form-control" })</div>
+        <div class="col-md-6 form-group">@Html.LabelFor(m => m.AssignedToUserId)@Html.DropDownListFor(m => m.AssignedToUserId, (IEnumerable<SelectListItem>)ViewBag.AssignedToUserId, "Select owner", new { @class = "form-control" })</div>
+    </div>
+    <div class="form-group">@Html.LabelFor(m => m.Title)@Html.TextBoxFor(m => m.Title, new { @class = "form-control" })</div>
+    <div class="form-group">@Html.LabelFor(m => m.Description)@Html.TextAreaFor(m => m.Description, 5, 20, new { @class = "form-control" })</div>
+    <div class="row">
+        <div class="col-md-6 form-group">@Html.LabelFor(m => m.Priority)@Html.DropDownListFor(m => m.Priority, (IEnumerable<SelectListItem>)ViewBag.PriorityOptions, "Select priority", new { @class = "form-control" })</div>
+        <div class="col-md-6 form-group">@Html.LabelFor(m => m.Status)@Html.DropDownListFor(m => m.Status, (IEnumerable<SelectListItem>)ViewBag.StatusOptions, "Select status", new { @class = "form-control" })</div>
+    </div>
+    <div class="form-group">@Html.LabelFor(m => m.ResolutionNotes)@Html.TextAreaFor(m => m.ResolutionNotes, 4, 20, new { @class = "form-control" })</div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

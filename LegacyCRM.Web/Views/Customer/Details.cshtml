@@ -1,0 +1,68 @@
+@model LegacyCRM.Core.Models.Customer
+@{
+    ViewBag.Title = "Customer Details";
+}
+<div class="page-header clearfix">
+    <h2 class="pull-left">@Model.CompanyName</h2>
+    <div class="pull-right">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-default" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>Contact</dt><dd>@Model.Name</dd>
+            <dt>Email</dt><dd>@Model.Email</dd>
+            <dt>Phone</dt><dd>@Model.Phone</dd>
+            <dt>Address</dt><dd>@Model.Address, @Model.City, @Model.Country</dd>
+            <dt>Industry</dt><dd>@Model.Industry</dd>
+            <dt>Status</dt><dd>@Model.Status</dd>
+            <dt>Assigned To</dt><dd>@(Model.AssignedUser != null ? Model.AssignedUser.FullName : "Unassigned")</dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Notes</div>
+            <div class="panel-body">@Model.Notes</div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Document Folder</div>
+            <div class="panel-body"><code>@ViewBag.DocumentFolder</code></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h4>Contacts</h4>
+        <ul class="list-group">
+            @foreach (var contact in Model.Contacts)
+            {
+                <li class="list-group-item">@contact.FirstName @contact.LastName <span class="text-muted">@contact.Title</span></li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h4>Opportunities</h4>
+        <ul class="list-group">
+            @foreach (var opportunity in Model.Opportunities)
+            {
+                <li class="list-group-item">@opportunity.Title <span class="badge">@opportunity.Stage</span></li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h4>Tickets</h4>
+        <ul class="list-group">
+            @foreach (var ticket in Model.Tickets)
+            {
+                <li class="list-group-item">@ticket.Title <span class="badge">@ticket.Status</span></li>
+            }
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.Action("RecentActivities", new { customerId = Model.Id })
+    </div>
+</div>

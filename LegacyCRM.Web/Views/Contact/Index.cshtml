@@ -1,0 +1,38 @@
+@model IEnumerable<LegacyCRM.Core.Models.Contact>
+@{
+    ViewBag.Title = "Contacts";
+}
+<div class="page-header clearfix">
+    <h2 class="pull-left">Contacts</h2>
+    <div class="pull-right">@Html.ActionLink("Create Contact", "Create", null, new { @class = "btn btn-primary" })</div>
+</div>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Customer</th>
+            <th>Email</th>
+            <th>Primary</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.FirstName @item.LastName</td>
+            <td>@(item.Customer != null ? item.Customer.CompanyName : "-")</td>
+            <td>@item.Email</td>
+            <td>@item.IsPrimary</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
+                @using (Html.BeginForm("Delete", "Contact", new { id = item.Id }, FormMethod.Post, new { @class = "inline-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Delete this contact?');">Delete</button>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

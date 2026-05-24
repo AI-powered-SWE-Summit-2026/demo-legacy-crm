@@ -1,0 +1,53 @@
+@model IEnumerable<LegacyCRM.Core.Models.Customer>
+@{
+    ViewBag.Title = "Customers";
+}
+<div class="page-header clearfix">
+    <h2 class="pull-left">Customers</h2>
+    <div class="pull-right">
+        @Html.ActionLink("Create Customer", "Create", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Export CSV", "Export", new { status = ViewBag.CurrentStatus }, new { @class = "btn btn-default" })
+    </div>
+</div>
+@using (Html.BeginForm("Index", "Customer", FormMethod.Get, new { @class = "form-inline filter-bar" }))
+{
+    <div class="form-group">
+        @Html.TextBox("search", ViewBag.Search as string, new { @class = "form-control", placeholder = "Search customers" })
+    </div>
+    <div class="form-group">
+        @Html.DropDownList("status", (IEnumerable<SelectListItem>)ViewBag.StatusFilter, "All statuses", new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-default">Filter</button>
+}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Company</th>
+            <th>Primary Contact</th>
+            <th>Status</th>
+            <th>Assigned</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CompanyName</td>
+            <td>@item.Name</td>
+            <td><span class="label label-info">@item.Status</span></td>
+            <td>@(item.AssignedUser != null ? item.AssignedUser.FullName : "Unassigned")</td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
+                @using (Html.BeginForm("Delete", "Customer", new { id = item.Id }, FormMethod.Post, new { @class = "inline-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Delete this customer?');">Delete</button>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<p><strong>Page:</strong> @ViewBag.Page</p>

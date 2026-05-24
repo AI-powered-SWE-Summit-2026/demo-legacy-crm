@@ -1,0 +1,24 @@
+@model LegacyCRM.Core.Models.Opportunity
+@{
+    ViewBag.Title = "Edit Opportunity";
+}
+<div class="page-header"><h2>Edit Opportunity</h2></div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    <div class="row">
+        <div class="col-md-6 form-group">@Html.LabelFor(m => m.CustomerId)@Html.DropDownListFor(m => m.CustomerId, (IEnumerable<SelectListItem>)ViewBag.CustomerId, "Select customer", new { @class = "form-control" })</div>
+        <div class="col-md-6 form-group">@Html.LabelFor(m => m.AssignedToUserId)@Html.DropDownListFor(m => m.AssignedToUserId, (IEnumerable<SelectListItem>)ViewBag.AssignedToUserId, "Select owner", new { @class = "form-control" })</div>
+    </div>
+    <div class="form-group">@Html.LabelFor(m => m.Title)@Html.TextBoxFor(m => m.Title, new { @class = "form-control" })</div>
+    <div class="form-group">@Html.LabelFor(m => m.Description)@Html.TextAreaFor(m => m.Description, 5, 20, new { @class = "form-control" })</div>
+    <div class="row">
+        <div class="col-md-4 form-group">@Html.LabelFor(m => m.Value)@Html.TextBoxFor(m => m.Value, new { @class = "form-control" })</div>
+        <div class="col-md-4 form-group">@Html.LabelFor(m => m.Stage)@Html.DropDownListFor(m => m.Stage, (IEnumerable<SelectListItem>)ViewBag.Stage, "Select stage", new { @class = "form-control" })</div>
+        <div class="col-md-4 form-group">@Html.LabelFor(m => m.Probability)@Html.TextBoxFor(m => m.Probability, new { @class = "form-control" })</div>
+    </div>
+    <div class="form-group">@Html.LabelFor(m => m.ExpectedCloseDate)@Html.TextBoxFor(m => m.ExpectedCloseDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })</div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

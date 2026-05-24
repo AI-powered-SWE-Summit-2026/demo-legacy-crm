@@ -1,0 +1,10 @@
+@{
+    ViewBag.Title = "Error";
+}
+<div class="page-header">
+    <h2>Something went wrong</h2>
+</div>
+<div class="alert alert-danger">
+    An unexpected error occurred while processing your request.
+</div>
+<p>@Html.ActionLink("Return to dashboard", "Index", "Home", null, new { @class = "btn btn-primary" })</p>

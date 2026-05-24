@@ -1,0 +1,26 @@
+@model LegacyCRM.Core.Models.Contact
+@{
+    ViewBag.Title = "Create Contact";
+}
+<div class="page-header"><h2>Create Contact</h2></div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.CustomerId)
+        @Html.DropDownListFor(m => m.CustomerId, (IEnumerable<SelectListItem>)ViewBag.CustomerId, "Select customer", new { @class = "form-control" })
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">@Html.LabelFor(m => m.FirstName)@Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })</div>
+        <div class="col-md-6 form-group">@Html.LabelFor(m => m.LastName)@Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">@Html.LabelFor(m => m.Email)@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })</div>
+        <div class="col-md-6 form-group">@Html.LabelFor(m => m.Phone)@Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })</div>
+    </div>
+    <div class="form-group">@Html.LabelFor(m => m.Title)@Html.TextBoxFor(m => m.Title, new { @class = "form-control" })</div>
+    <div class="checkbox"><label>@Html.CheckBoxFor(m => m.IsPrimary) Primary contact</label></div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

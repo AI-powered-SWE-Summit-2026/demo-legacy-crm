@@ -1,0 +1,28 @@
+@{
+    ViewBag.Title = "Login";
+}
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default login-panel">
+            <div class="panel-heading"><h3 class="panel-title">LegacyCRM Login</h3></div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        @Html.TextBox("username", null, new { @class = "form-control", autocomplete = "off" })
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        @Html.Password("password", null, new { @class = "form-control" })
+                    </div>
+                    @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string)
+                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                }
+                <p class="help-block">Demo credentials: admin / admin123</p>
+            </div>
+        </div>
+    </div>
+</div>
