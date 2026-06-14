@@ -33,6 +33,12 @@ LegacyCRM is a classic ASP.NET MVC 5 customer relationship management demo targe
    - dotnet build LegacyCRM.sln
 5. Run the site from Visual Studio, IIS Express, or your preferred .NET Framework-compatible host.
 
+## Core bounded test coverage
+
+- Run bounded core coverage checks with:
+  - `powershell -ExecutionPolicy Bypass -File .\Run-CoreCoverageBounded.ps1`
+- The command enforces a minimum line coverage floor of 25% and fails if coverage exceeds the 30% cap.
+
 ## Demo credentials
 
 - admin / admin123
